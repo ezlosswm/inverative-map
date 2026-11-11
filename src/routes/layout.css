@@ -1,9 +1,14 @@
 @import 'tailwindcss';
 
 :root {
-	--vermillion: #e34234;
+	--remax-blue: #003da5;
+	--remax-red: #e60e16;
+
+	--fresh: #38a169;
 }
 
 @theme inline {
-	--color-accent: var(--vermillion);
+	--color-accent: var(--fresh);
+	--color-remax-red: var(--remax-red);
+	--color-remax-blue: var(--remax-blue);
 }

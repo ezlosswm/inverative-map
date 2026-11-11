@@ -4,12 +4,12 @@
 
 	// Once the layers line up, draw the polygons usings the
 	// existing points data.
-	import { lots } from '#lib/data/lots.ts';
+	import { lots, type Lot } from '#lib/data/lots.ts';
 	import map from '#lib/assets/map.webp?enhanced';
 
-	// let selectedLotId = $state<number | null>(null);
-
-	let { selectedLot, onSelect } = $props();
+	// onSelect is a callback function
+	let { selectedLot, onSelect }: { selectedLot: Lot | null; onSelect: (lot: Lot) => void } =
+		$props();
 </script>
 
 <div class="col-span-9">
@@ -50,7 +50,7 @@
 					class:pointer-events-none={lot.status === 'sold'}
 					class:cursor-not-allowed={lot.status === 'sold'}
 					class:opacity-50={lot.status === 'sold'}
-					class:active={selectedLot === lot.id}
+					class:active={selectedLot?.id === lot.id}
 					class:available={lot.status === 'available'}
 					class:sold={lot.status === 'sold'}
 					onclick={() => {
@@ -65,16 +65,18 @@
 
 <style>
 	.active {
-		fill: var(--color-accent) !important;
-		stroke: var(--color-accent);
+		fill: var(--color-remax-blue) !important;
+		stroke: var(--color-remax-blue);
 		stroke-width: 5;
-		opacity: 0.5;
+		opacity: 0.4;
 	}
 
 	.available {
-		fill: #4a57cc85;
+		fill: var(--color-accent);
+		opacity: 0.3;
 	}
 	.sold {
-		fill: rgba(255, 126, 126, 0.397);
+		fill: var(--color-remax-red);
+		opacity: 0.3;
 	}
 </style>

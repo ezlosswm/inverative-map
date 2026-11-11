@@ -4,7 +4,7 @@
 	import PropertyMap from '#lib/components/PropertyMap.svelte';
 	import { lots, type Lot } from '#lib/data/lots.ts';
 
-	let selectedLot = $state<Lot | null>(lots[0]);
+	let selectedLot = $state<Lot | null>(lots[0] ?? 0);
 
 	// We need a way for PropertyMap.svelte to communicate with
 	// +page.svelte. We use a function as a prop.
@@ -19,6 +19,6 @@
 	<div class="mt-10 grid grid-cols-12 gap-5">
 		<PropertyMap {selectedLot} onSelect={handleLotSelect} />
 		<LotDetails {selectedLot} />
-		<AvailableLots selectedLotId={selectedLot?.id} onSelect={handleLotSelect} />
+		<AvailableLots selectedLotId={selectedLot?.id ?? null} onSelect={handleLotSelect} />
 	</div>
 </section>

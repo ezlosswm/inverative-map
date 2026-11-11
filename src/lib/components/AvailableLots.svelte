@@ -2,9 +2,10 @@
 	// This is where the interaction comes full circle.
 	// Selecting a property from either the map or this
 	// available list should update the panel.
-	import { lots } from '#lib/data/lots.ts';
+	import { lots, type Lot } from '#lib/data/lots.ts';
 
-	let { selectedLotId, onSelect } = $props();
+	let { selectedLotId, onSelect }: { selectedLotId: number | null; onSelect: (lot: Lot) => void } =
+		$props();
 
 	const availableLots = $derived(lots.filter((lot) => lot.status === 'available'));
 </script>
@@ -16,20 +17,18 @@
 				onclick={() => {
 					onSelect(lot);
 				}}
-				class="col-span-1 cursor-pointer bg-neutral-100 p-1 transition-colors hover:bg-neutral-200 active:scale-99"
+				class="col-span-1 cursor-pointer bg-black/5 p-1 transition-colors hover:bg-black/10 active:scale-99"
 				class:active={selectedLotId === lot.id}
 			>
-				<article>
-					<h3>
-						Lot {lot.id}
-					</h3>
+				<h3 class="mb-3 text-center font-medium">
+					Lot {lot.id}
+				</h3>
 
-					<div class="text-xs">
-						<p>{lot.size}</p>
-						<p>{lot.price}</p>
-						<p>{lot.deposit}</p>
-					</div>
-				</article>
+				<div class="text-justify text-xs text-black/75">
+					<p class="text-black/85">Size <span class="font-medium"> {lot.size} </span></p>
+					<p class="text-black/85">Price <span class="font-medium"> {lot.price} </span></p>
+					<p class="text-black/85">Deposti <span class="font-medium"> {lot.deposit} </span></p>
+				</div>
 			</button>
 		{/each}
 	</div>
@@ -37,7 +36,7 @@
 
 <style>
 	.active {
-		background: rgb(9, 197, 71);
-		border-color: #2563eb;
+		background: var(--color-accent);
+		border-color: var(--color-accent);
 	}
 </style>
