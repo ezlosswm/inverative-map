@@ -5,7 +5,7 @@
 </script>
 
 {#if selectedLot}
-	<div class="col-span-3 bg-black/5 p-3">
+	<div class="order-1 col-span-full bg-black/5 p-3 md:col-span-3">
 		<div class="mb-3 flex items-end gap-2">
 			<h2 class="text-xl font-medium">Lot: {selectedLot.id}</h2>
 			<p class="text-sm text-black/60">{selectedLot.status}</p>

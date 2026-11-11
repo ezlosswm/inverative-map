@@ -12,7 +12,7 @@
 		$props();
 </script>
 
-<div class="col-span-9">
+<div class="order-2 col-span-full md:order-1 md:col-span-9">
 	<div class="relative aspect-square w-full">
 		<enhanced:img
 			src={map}

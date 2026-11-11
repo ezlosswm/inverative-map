@@ -10,7 +10,7 @@
 	const availableLots = $derived(lots.filter((lot) => lot.status === 'available'));
 </script>
 
-<div class="col-span-12">
+<div class="order-3 col-span-12">
 	<div class="grid grid-cols-6 gap-1">
 		{#each availableLots as lot (lot.id)}
 			<button
@@ -25,9 +25,17 @@
 				</h3>
 
 				<div class="text-justify text-xs text-black/75">
-					<p class="text-black/85">Size <span class="font-medium"> {lot.size} </span></p>
-					<p class="text-black/85">Price <span class="font-medium"> {lot.price} </span></p>
-					<p class="text-black/85">Deposti <span class="font-medium"> {lot.deposit} </span></p>
+					<p class="text-black/85">
+						<span class="hidden sm:block">Size</span> <span class="font-medium"> {lot.size} </span>
+					</p>
+					<p class="text-black/85">
+						<span class="hidden sm:block">Price</span>
+						<span class="font-medium"> {lot.price} </span>
+					</p>
+					<p class="text-black/85">
+						<span class="hidden sm:block">Deposit</span>
+						<span class="font-medium"> {lot.deposit} </span>
+					</p>
 				</div>
 			</button>
 		{/each}
