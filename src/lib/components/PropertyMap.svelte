@@ -4,15 +4,21 @@
 
 	// Once the layers line up, draw the polygons usings the
 	// existing points data.
-	import map from '#lib/assets/map.webp?enhanced';
 	import { lots } from '#lib/data/lots.ts';
+	import map from '#lib/assets/map.webp?enhanced';
+
+	// let selectedLotId = $state<number | null>(null);
+
+	let { selectedLot, onSelect } = $props();
 </script>
 
-<div class="mt-10">
+<div class="col-span-9">
 	<div class="relative aspect-square w-full">
 		<enhanced:img
 			src={map}
 			alt="Map of the property"
+			loading="eager"
+			fetchpriority="high"
 			class="absolute inset-0 size-full object-cover"
 		/>
 
@@ -25,20 +31,32 @@
 				<!-- which forms a shape -->
 
 				<!-- Polygons support event handlers -->
+				<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 				<polygon
-					role="button"
-					tabindex="0"
+					role={lot.status === 'sold' ? undefined : 'button'}
+					tabindex={lot.status === 'sold' ? -1 : 0}
+					aria-disabled={lot.status === 'sold'}
 					onkeydown={(e) => {
+						if (lot.status === 'sold') return;
 						if (e.key === 'Enter' || e.key === ' ') {
 							e.preventDefault();
+							onSelect(lot);
 						}
 					}}
 					points={lot.points}
 					// Dynamically assigned CSS classes
-					class="cursor-pointer"
+					class="transition-colors duration-200"
+					class:cursor-pointer={lot.status !== 'sold'}
+					class:pointer-events-none={lot.status === 'sold'}
+					class:cursor-not-allowed={lot.status === 'sold'}
+					class:opacity-50={lot.status === 'sold'}
+					class:active={selectedLot === lot.id}
 					class:available={lot.status === 'available'}
 					class:sold={lot.status === 'sold'}
-					onclick={() => alert(`Lot ID ${lot.id} is ${lot.status}`)}
+					onclick={() => {
+						if (lot.status === 'sold') return;
+						onSelect(lot);
+					}}
 				/>
 			{/each}
 		</svg>
@@ -46,6 +64,13 @@
 </div>
 
 <style>
+	.active {
+		fill: var(--color-accent) !important;
+		stroke: var(--color-accent);
+		stroke-width: 5;
+		opacity: 0.5;
+	}
+
 	.available {
 		fill: #4a57cc85;
 	}

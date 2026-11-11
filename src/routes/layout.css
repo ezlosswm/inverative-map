@@ -1,1 +1,9 @@
 @import 'tailwindcss';
+
+:root {
+	--vermillion: #e34234;
+}
+
+@theme inline {
+	--color-accent: var(--vermillion);
+}
